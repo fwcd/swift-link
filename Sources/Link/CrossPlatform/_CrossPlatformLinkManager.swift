@@ -1,3 +1,4 @@
+#if !os(iOS)
 public struct _CrossPlatformLinkManager: LinkManagerProtocol {
     @MainActor
     public var appSessionState: LinkSessionState {
@@ -35,3 +36,4 @@ public struct _CrossPlatformLinkManager: LinkManagerProtocol {
         fatalError("TODO")
     }
 }
+#endif

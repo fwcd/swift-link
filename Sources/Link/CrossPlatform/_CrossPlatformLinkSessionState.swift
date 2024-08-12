@@ -1,3 +1,4 @@
+#if !os(iOS)
 public struct _CrossPlatformLinkSessionState: LinkSessionStateProtocol {
     public var tempo: Double {
         get { fatalError("TODO") }
@@ -16,3 +17,4 @@ public struct _CrossPlatformLinkSessionState: LinkSessionStateProtocol {
         fatalError("TODO")
     }
 }
+#endif
