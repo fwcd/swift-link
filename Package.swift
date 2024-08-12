@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Link",
+    name: "swift-link",
     platforms: [
         .iOS(.v17),
     ],
