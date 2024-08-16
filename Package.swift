@@ -51,10 +51,7 @@ let package = Package(
                 .target(name: "CxxAsio"),
             ],
             exclude: [
-                "link/examples",
-                "link/extensions", // We symlink the C wrapper manually for better extensibility
-                "link/src", // Contains only tests
-                "link/modules", // We already consume asio as a system library
+                "link", // We add the header path manually
             ],
             cxxSettings: linkPlatformDefines + [
                 .headerSearchPath("link/include"),
