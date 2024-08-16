@@ -52,11 +52,10 @@ let package = Package(
             ],
             exclude: [
                 "link/examples",
-                "link/extensions/abl_link/examples",
+                "link/extensions", // We symlink the C wrapper manually for better extensibility
                 "link/src", // Contains only tests
                 "link/modules", // We already consume asio as a system library
             ],
-            publicHeadersPath: "link/extensions/abl_link/include",
             cxxSettings: linkPlatformDefines + [
                 .headerSearchPath("link/include"),
                 .headerSearchPath("link/third_party/catch"),
