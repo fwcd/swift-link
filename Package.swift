@@ -28,7 +28,7 @@ let package = Package(
         .target(
             name: "CLinkKit",
             dependencies: [
-                .target(name: "LinkKit", condition: .when(platforms: [.iOS])),
+                .target(name: "LinkKit", condition: .when(platforms: [.iOS, .macCatalyst])),
             ]
         ),
         .systemLibrary(
@@ -59,8 +59,8 @@ let package = Package(
         .target(
             name: "Link",
             dependencies: [
-                .target(name: "CLinkKit", condition: .when(platforms: [.iOS])),
-                .target(name: "CxxLink", condition: .when(platforms: [.macOS])) // TODO: Other platforms
+                .target(name: "CLinkKit", condition: .when(platforms: [.iOS, .macCatalyst])),
+                .target(name: "CxxLink", condition: .when(platforms: [.android, .linux, .macOS, .openbsd, .wasi, .windows])),
             ]
         ),
     ],
