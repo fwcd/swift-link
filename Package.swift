@@ -4,9 +4,9 @@
 import PackageDescription
 
 let linkPlatformDefines: [CXXSetting] = [
-    .define("LINK_PLATFORM_UNIX", to: "1", .when(platforms: [.macOS, .linux])),
+    .define("LINK_PLATFORM_UNIX", to: "1", .when(platforms: [.macOS, .linux, .openbsd])),
     .define("LINK_PLATFORM_MACOSX", to: "1", .when(platforms: [.macOS])),
-    .define("LINK_PLATFORM_LINUX", to: "1", .when(platforms: [.linux])),
+    .define("LINK_PLATFORM_LINUX", to: "1", .when(platforms: [.linux, .openbsd])),
     .define("LINK_PLATFORM_WINDOWS", to: "1", .when(platforms: [.windows])),
 ]
 
