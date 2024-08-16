@@ -12,21 +12,17 @@ struct State {
 }
 
 func disableBufferedInput() {
-#if !os(Windows)
     var t = termios()
     tcgetattr(STDIN_FILENO, &t)
     t.c_lflag &= ~tcflag_t(ICANON)
     tcsetattr(STDIN_FILENO, TCSANOW, &t)
-#endif
 }
 
 func enableBufferedInput() {
-#if !os(Windows)
     var t = termios()
     tcgetattr(STDIN_FILENO, &t)
     t.c_lflag |= tcflag_t(ICANON)
     tcsetattr(STDIN_FILENO, TCSANOW, &t)
-#endif
 }
 
 /// Drop-in replacement for `FD_ZERO(set); FD_SET(0, set)`
@@ -39,7 +35,6 @@ func fdSetFirst(_ set: inout fd_set) {
 }
 
 func waitForInput() -> Bool {
-#if !os(Windows)
     var selectset = fd_set()
     var timeout = timeval(tv_sec: 0, tv_usec: 50000)
     fdSetFirst(&selectset)
@@ -47,33 +42,12 @@ func waitForInput() -> Bool {
     if ret > 0 {
         return true
     }
-#elseif os(Windows)
-    // TODO: Try compiling this on windows
-    let handle: HANDLE = GetStdHandle(STD_INPUT_HANDLE)
-    if WaitForSingleObject(handle, 50) == WAIT_OBJECT_0 {
-        return true
-    }
-#else
-#error("Missing implementation")
-#endif
     return false
 }
 
 func clearLine() {
     print("   \r", terminator: "")
     fflush(stdout)
-}
-
-func clearInput() {
-#if os(Windows)
-    {
-    // TODO: Port this
-    // HANDLE handle = GetStdHandle(STD_INPUT_HANDLE)
-    // INPUT_RECORD r[512]
-    // DWORD read
-    // ReadConsoleInput(handle, r, 512, &read)
-    }
-#endif
 }
 
 func printHelp() {
@@ -119,23 +93,7 @@ func print(state: State) {
 
 @MainActor
 func input(state: inout State) {
-    let inChar: CChar
-
-#if !os(Windows)
-    inChar = CChar(fgetc(stdin))
-#elseif os(Windows)
-    // TODO: Port Windows logic
-    // HANDLE stdinHandle = GetStdHandle(STD_INPUT_HANDLE)
-    // DWORD numCharsRead
-    // INPUT_RECORD inputRecord
-    // do
-    // {
-    // ReadConsoleInput(stdinHandle, &inputRecord, 1, &numCharsRead)
-    // } while ((inputRecord.EventType != KEY_EVENT) || inputRecord.Event.KeyEvent.bKeyDown)
-    // inChar = inputRecord.Event.KeyEvent.uChar.AsciiChar
-#else
-#error("Missing implementation")
-#endif
+    let inChar: CChar = CChar(fgetc(stdin))
 
     let enabled = state.link.isEnabled
 
@@ -176,7 +134,6 @@ func main() {
     printHelp()
     printStateHeader()
     disableBufferedInput()
-    clearInput()
 
     while state.running {
         clearLine()
