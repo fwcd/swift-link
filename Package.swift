@@ -3,13 +3,6 @@
 
 import PackageDescription
 
-let linkPlatformDefines: [CXXSetting] = [
-    .define("LINK_PLATFORM_UNIX", .when(platforms: [.macOS, .linux, .openbsd])),
-    .define("LINK_PLATFORM_MACOSX", .when(platforms: [.macOS])),
-    .define("LINK_PLATFORM_LINUX", .when(platforms: [.linux, .openbsd])),
-    .define("LINK_PLATFORM_WINDOWS", .when(platforms: [.windows])),
-]
-
 let package = Package(
     name: "swift-link",
     platforms: [
@@ -54,7 +47,11 @@ let package = Package(
             exclude: [
                 "link", // We add the header path manually
             ],
-            cxxSettings: linkPlatformDefines + [
+            cxxSettings: [
+                .define("LINK_PLATFORM_UNIX", .when(platforms: [.macOS, .linux, .openbsd])),
+                .define("LINK_PLATFORM_MACOSX", .when(platforms: [.macOS])),
+                .define("LINK_PLATFORM_LINUX", .when(platforms: [.linux, .openbsd])),
+                .define("LINK_PLATFORM_WINDOWS", .when(platforms: [.windows])),
                 .headerSearchPath("link/include"),
                 .headerSearchPath("link/third_party/catch"),
             ]
