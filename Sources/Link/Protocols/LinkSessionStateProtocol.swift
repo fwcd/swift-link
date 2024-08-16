@@ -11,6 +11,10 @@ public protocol LinkSessionStateProtocol {
     
     /// Attempts to set the session to playing at the given time.
     mutating func setPlaying(_ isPlaying: Bool, at micros: UInt64)
+
+    /// Attempts to set the session to playing at the given time and requests
+    /// the beat at the given time.
+    mutating func setPlaying(_ isPlaying: Bool, at micros: UInt64, andRequestBeat beat: Double, quantum: Double)
     
     /// Attempts to set the tempo at the given time.
     mutating func setTempo(_ tempo: Double, at micros: UInt64)
@@ -38,6 +42,12 @@ public extension LinkSessionStateProtocol {
     /// Attempts to set the session to playing at the current time.
     mutating func setPlaying(_ isPlaying: Bool) {
         setPlaying(isPlaying, at: Clock.shared.micros)
+    }
+
+    /// Attempts to set the session to playing at the given time and requests
+    /// the beat at the current time.
+    mutating func setPlaying(_ isPlaying: Bool, andRequestBeat beat: Double, quantum: Double) {
+        setPlaying(isPlaying, at: Clock.shared.micros, andRequestBeat: beat, quantum: quantum)
     }
 
     /// Attempts to set the tempo at the current time.

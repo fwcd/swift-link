@@ -16,7 +16,7 @@ public protocol LinkManagerProtocol {
     var isConnected: Bool { get }
 
     /// Whether start/stop sync is enabled by the user in the settings.
-    var isStartStopSyncEnabled: Bool { get }
+    var isStartStopSyncEnabled: Bool { get set }
 
     init(initialBpm: Double)
 

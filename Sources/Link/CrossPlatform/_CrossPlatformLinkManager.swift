@@ -36,7 +36,8 @@ public final class _CrossPlatformLinkManager: LinkManagerProtocol {
     }
 
     public var isStartStopSyncEnabled: Bool {
-        abl_link_is_start_stop_sync_enabled(linkInstance)
+        get { abl_link_is_start_stop_sync_enabled(linkInstance) }
+        set { abl_link_enable_start_stop_sync(linkInstance, newValue) }
     }
 
     public init(initialBpm: Double) {

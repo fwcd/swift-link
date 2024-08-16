@@ -18,6 +18,16 @@ public struct _iOSLinkSessionState: LinkSessionStateProtocol {
         ABLLinkSetIsPlaying(sessionStateRef, isPlaying, Clock.shared.ticks(forMicros: micros))
     }
     
+    public func setPlaying(_ isPlaying: Bool, at micros: UInt64, andRequestBeat beat: Double, quantum: Double) {
+        ABLLinkSetIsPlayingAndRequestBeatAtTime(
+            sessionStateRef,
+            isPlaying,
+            Clock.shared.ticks(forMicros: micros),
+            beat,
+            quantum
+        )
+    }
+    
     public func setTempo(_ tempo: Double, at micros: UInt64) {
         ABLLinkSetTempo(sessionStateRef, tempo, Clock.shared.ticks(forMicros: micros))
     }

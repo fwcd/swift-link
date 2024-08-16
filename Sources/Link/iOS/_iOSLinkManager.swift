@@ -26,7 +26,8 @@ import Observation
     }
     
     public var isStartStopSyncEnabled: Bool {
-        ABLLinkIsStartStopSyncEnabled(linkRef)
+        get { ABLLinkIsStartStopSyncEnabled(linkRef) }
+        set { fatalError("Start/stop sync can only be enabled via the GUI on iOS") }
     }
     
     public init(initialBpm: Double) {

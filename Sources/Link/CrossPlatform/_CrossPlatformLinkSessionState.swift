@@ -23,6 +23,16 @@ public final class _CrossPlatformLinkSessionState: LinkSessionStateProtocol {
     public func setPlaying(_ isPlaying: Bool, at micros: UInt64) {
         abl_link_set_is_playing(sessionStateInstance, isPlaying, micros)
     }
+
+    public func setPlaying(_ isPlaying: Bool, at micros: UInt64, andRequestBeat beat: Double, quantum: Double) {
+        abl_link_set_is_playing_and_request_beat_at_time(
+            sessionStateInstance,
+            isPlaying,
+            micros,
+            beat,
+            quantum
+        )
+    }
     
     public func setTempo(_ tempo: Double, at micros: UInt64) {
         abl_link_set_tempo(sessionStateInstance, tempo, Int64(micros))
