@@ -139,7 +139,7 @@ func input(state: inout State) {
 
     let enabled = state.link.isEnabled
 
-    switch String(cString: [inChar]) {
+    switch Character(Unicode.Scalar(UInt8(inChar))) {
     case "q":
         state.running = false
         clearLine()
