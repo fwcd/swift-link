@@ -6,8 +6,8 @@ public final class _CrossPlatformClock: ClockProtocol {
 
     private let clockInstance: abl_clock
 
-    public var hostTime: UInt64 {
-        abl_clock_ticks(clockInstance)
+    public var micros: UInt64 {
+        abl_clock_micros(clockInstance)
     }
 
     public init() {

@@ -7,19 +7,19 @@ public protocol LinkSessionStateProtocol {
     var _isPlaying: Bool { get }
 
     /// The beat at the given time (by default: now) for the given quantum.
-    func beat(at hostTime: UInt64, quantum: Double) -> Double
+    func beat(at micros: UInt64, quantum: Double) -> Double
     
     /// Attempts to set the session to playing at the given time.
-    mutating func setPlaying(_ isPlaying: Bool, at hostTime: UInt64)
+    mutating func setPlaying(_ isPlaying: Bool, at micros: UInt64)
     
     /// Attempts to set the tempo at the given time.
-    mutating func setTempo(_ tempo: Double, at hostTime: UInt64)
+    mutating func setTempo(_ tempo: Double, at micros: UInt64)
 
     /// Attempts to map the beat to the given time.
-    mutating func request(beat: Double, at hostTime: UInt64, quantum: Double)
+    mutating func request(beat: Double, at micros: UInt64, quantum: Double)
     
     /// Force-remaps the beat to the given time.
-    mutating func force(beat: Double, at hostTime: UInt64, quantum: Double)
+    mutating func force(beat: Double, at micros: UInt64, quantum: Double)
 }
 
 extension LinkSessionStateProtocol {
@@ -37,21 +37,21 @@ extension LinkSessionStateProtocol {
 
     /// Attempts to set the session to playing at the current time.
     mutating func setPlaying(_ isPlaying: Bool) {
-        setPlaying(isPlaying, at: Clock.shared.hostTime)
+        setPlaying(isPlaying, at: Clock.shared.micros)
     }
 
     /// Attempts to set the tempo at the current time.
     mutating func setTempo(_ tempo: Double) {
-        setTempo(tempo, at: Clock.shared.hostTime)
+        setTempo(tempo, at: Clock.shared.micros)
     }
 
     /// Attempts to map the beat to the current time.
     mutating func request(beat: Double, quantum: Double) {
-        request(beat: beat, at: Clock.shared.hostTime, quantum: quantum)
+        request(beat: beat, at: Clock.shared.micros, quantum: quantum)
     }
     
     /// Force-remaps the beat to the current time.
     mutating func force(beat: Double, quantum: Double) {
-        force(beat: beat, at: Clock.shared.hostTime, quantum: quantum)
+        force(beat: beat, at: Clock.shared.micros, quantum: quantum)
     }
 }

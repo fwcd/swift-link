@@ -14,24 +14,24 @@ public struct _iOSLinkSessionState: LinkSessionStateProtocol {
         ABLLinkIsPlaying(sessionStateRef)
     }
     
-    public func setPlaying(_ isPlaying: Bool, at hostTime: UInt64) {
-        ABLLinkSetIsPlaying(sessionStateRef, isPlaying, hostTime)
+    public func setPlaying(_ isPlaying: Bool, at micros: UInt64) {
+        ABLLinkSetIsPlaying(sessionStateRef, isPlaying, Clock.shared.ticks(forMicros: micros))
     }
     
-    public func setTempo(_ tempo: Double, at hostTime: UInt64) {
-        ABLLinkSetTempo(sessionStateRef, tempo, hostTime)
+    public func setTempo(_ tempo: Double, at micros: UInt64) {
+        ABLLinkSetTempo(sessionStateRef, tempo, Clock.shared.ticks(forMicros: micros))
     }
     
-    public func beat(at hostTime: UInt64, quantum: Double) -> Double {
-        ABLLinkBeatAtTime(sessionStateRef, hostTime, quantum)
+    public func beat(at micros: UInt64, quantum: Double) -> Double {
+        ABLLinkBeatAtTime(sessionStateRef, Clock.shared.ticks(forMicros: micros), quantum)
     }
     
-    public mutating func request(beat: Double, at hostTime: UInt64, quantum: Double) {
-        ABLLinkRequestBeatAtTime(sessionStateRef, beat, hostTime, quantum)
+    public mutating func request(beat: Double, at micros: UInt64, quantum: Double) {
+        ABLLinkRequestBeatAtTime(sessionStateRef, beat, Clock.shared.ticks(forMicros: micros), quantum)
     }
     
-    public mutating func force(beat: Double, at hostTime: UInt64, quantum: Double) {
-        ABLLinkForceBeatAtTime(sessionStateRef, beat, hostTime, quantum)
+    public mutating func force(beat: Double, at micros: UInt64, quantum: Double) {
+        ABLLinkForceBeatAtTime(sessionStateRef, beat, Clock.shared.ticks(forMicros: micros), quantum)
     }
 }
 #endif

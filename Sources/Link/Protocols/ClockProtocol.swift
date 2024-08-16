@@ -4,5 +4,5 @@ public protocol ClockProtocol {
     static var shared: Self { get }
 
     /// The current host time in ticks.
-    var hostTime: UInt64 { get }
+    var micros: UInt64 { get }
 }

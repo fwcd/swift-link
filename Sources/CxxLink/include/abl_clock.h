@@ -14,7 +14,7 @@ abl_clock abl_clock_create(void);
 
 void abl_clock_destroy(abl_clock clock);
 
-uint64_t abl_clock_ticks(abl_clock clock);
+uint64_t abl_clock_micros(abl_clock clock);
 
 #ifdef __cplusplus
 }
