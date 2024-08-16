@@ -22,7 +22,7 @@ public protocol LinkSessionStateProtocol {
     mutating func force(beat: Double, at micros: UInt64, quantum: Double)
 }
 
-extension LinkSessionStateProtocol {
+public extension LinkSessionStateProtocol {
     /// The tempo in beats per minute.
     var tempo: Double {
         get { _tempo }
