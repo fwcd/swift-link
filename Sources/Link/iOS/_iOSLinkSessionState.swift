@@ -8,12 +8,20 @@ public struct _iOSLinkSessionState: LinkSessionStateProtocol {
     
     public var tempo: Double {
         get { ABLLinkGetTempo(sessionStateRef) }
-        set { ABLLinkSetTempo(sessionStateRef, newValue, mach_absolute_time()) }
+        set { setTempo(newValue) }
     }
     
     public var isPlaying: Bool {
         get { ABLLinkIsPlaying(sessionStateRef) }
-        set { ABLLinkSetIsPlaying(sessionStateRef, newValue, mach_absolute_time()) }
+        set { setPlaying(newValue) }
+    }
+    
+    public func setPlaying(_ isPlaying: Bool, at hostTime: UInt64 = mach_absolute_time()) {
+        ABLLinkSetIsPlaying(sessionStateRef, isPlaying, hostTime)
+    }
+    
+    public func setTempo(_ tempo: Double, at hostTime: UInt64 = mach_absolute_time()) {
+        ABLLinkSetTempo(sessionStateRef, tempo, hostTime)
     }
     
     public func beat(at hostTime: UInt64 = mach_absolute_time(), quantum: Double) -> Double {
