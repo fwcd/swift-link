@@ -4,14 +4,12 @@ import CxxLink
 public final class _CrossPlatformLinkSessionState: LinkSessionStateProtocol {
     let sessionStateInstance: abl_link_session_state
     
-    public var tempo: Double {
-        get { abl_link_tempo(sessionStateInstance) }
-        set { fatalError("TODO") }
+    public var _tempo: Double {
+        abl_link_tempo(sessionStateInstance)
     }
     
-    public var isPlaying: Bool {
-        get { abl_link_is_playing(sessionStateInstance) }
-        set { fatalError("TODO") }
+    public var _isPlaying: Bool {
+        abl_link_is_playing(sessionStateInstance)
     }
     
     init() {
