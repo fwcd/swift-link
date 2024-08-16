@@ -91,17 +91,21 @@ func printStateHeader() {
     print("\nenabled | num peers | quantum | start stop sync | tempo   | beats   | metro")
 }
 
+func pad<T>(_ subject: T, _ length: Int) -> String {
+    String(describing: subject).padding(toLength: length, withPad: " ", startingAt: 0)
+}
+
 @MainActor
 func print(state: State) {
     let sessionState = state.link.appSessionState
     let enabled = state.link.isEnabled ? "yes" : "no"
     let peerCount = state.link.peerCount
-    let startStop = state.link.isStartStopSyncEnabled ? "yes" : " no"
+    let startStop = state.link.isStartStopSyncEnabled ? "yes" : "no"
     let playing = sessionState.isPlaying ? "[playing]" : "[stopped]"
     let tempo = sessionState.tempo
     let beats = sessionState.beat(quantum: state.quantum)
     let phase = sessionState.phase(quantum: state.quantum)
-    var line = String(format: "%7s | %ulld | %7.f | %3s %11s | %7.2f | %7.2f | ", enabled, peerCount, state.quantum, startStop, playing, tempo, beats)
+    var line = "\(pad(enabled, 7)) | \(pad(peerCount, 9)) | \(pad(state.quantum, 7)) | \(pad(startStop, 3)) \(pad(playing, 11)) | \(String(format: "%7.2f | %7.2f", tempo, beats)) | "
     for i in 0..<Int(state.quantum.rounded(.up)) {
         if Double(i) < phase {
             line.append("X")
