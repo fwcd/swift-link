@@ -12,9 +12,6 @@ public protocol LinkManagerProtocol {
     /// Whether Link is enabled by the user in the settings.
     var isEnabled: Bool { get }
 
-    /// Whether the session is playing.
-    var isPlaying: Bool { get set }
-
     /// Whether Link is connected to other peers.
     var isConnected: Bool { get }
 

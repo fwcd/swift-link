@@ -13,6 +13,12 @@ public struct _iOSLinkSessionState: LinkSessionStateProtocol {
         set { ABLLinkSetTempo(sessionStateRef, newValue, mach_absolute_time()) }
     }
     
+    /// Whether the session state is playing.
+    public var isPlaying: Bool {
+        get { ABLLinkIsPlaying(sessionStateRef) }
+        set { ABLLinkSetIsPlaying(sessionStateRef, newValue, mach_absolute_time()) }
+    }
+    
     /// The beat at the given time (by default: now) for the given quantum.
     public func beat(at hostTime: UInt64 = mach_absolute_time(), quantum: Double) -> Double {
         ABLLinkBeatAtTime(sessionStateRef, hostTime, quantum)

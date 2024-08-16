@@ -52,10 +52,11 @@ let package = Package(
             ],
             exclude: [
                 "link/examples",
-                "link/extensions", // We don't need the C wrapper
+                "link/extensions/abl_link/examples",
                 "link/src", // Contains only tests
                 "link/modules", // We already consume asio as a system library
             ],
+            publicHeadersPath: "link/extensions/abl_link/include",
             cxxSettings: linkPlatformDefines + [
                 .headerSearchPath("link/include"),
                 .headerSearchPath("link/third_party/catch"),
@@ -66,15 +67,7 @@ let package = Package(
             dependencies: [
                 .target(name: "CLinkKit", condition: .when(platforms: [.iOS])),
                 .target(name: "CxxLink", condition: .when(platforms: [.macOS])) // TODO: Other platforms
-            ],
-            cxxSettings: linkPlatformDefines + [
-                // We don't set publicHeaderPath in CxxLink to link/include
-                // since that will include a bunch of headers for other
-                // platforms (e.g. ESP32), so we'll just set the header
-                // search path manually here where we consume CxxLink.
-                .headerSearchPath("../CxxLink/link/include"),
-            ],
-            swiftSettings: [.interoperabilityMode(.Cxx)]
+            ]
         ),
     ],
     cxxLanguageStandard: .cxx20

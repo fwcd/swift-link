@@ -21,11 +21,6 @@ import Observation
         ABLLinkIsEnabled(linkRef)
     }
     
-    public var isPlaying: Bool {
-        get { ABLLinkIsPlaying(linkRef) }
-        set { ABLLinkSetIsPlaying(linkRef, newValue, mach_absolute_time()) }
-    }
-    
     public var isConnected: Bool {
         ABLLinkIsConnected(linkRef)
     }
