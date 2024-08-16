@@ -6,7 +6,7 @@ public protocol LinkSessionStateProtocol {
     /// Whether the session is playing.
     var _isPlaying: Bool { get }
 
-    /// The beat at the given time (by default: now) for the given quantum.
+    /// The beat at the given time for the given quantum.
     func beat(at micros: UInt64, quantum: Double) -> Double
     
     /// Attempts to set the session to playing at the given time.
@@ -37,6 +37,11 @@ public extension LinkSessionStateProtocol {
     var isPlaying: Bool {
         get { _isPlaying }
         set { setPlaying(newValue) }
+    }
+
+    /// The beat at the current time for the given quantum.
+    func beat(quantum: Double) -> Double {
+        beat(at: Clock.shared.micros, quantum: quantum)
     }
 
     /// Attempts to set the session to playing at the current time.
