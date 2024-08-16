@@ -36,6 +36,10 @@ public struct _iOSLinkSessionState: LinkSessionStateProtocol {
         ABLLinkBeatAtTime(sessionStateRef, Clock.shared.ticks(forMicros: micros), quantum)
     }
     
+    public func phase(at micros: UInt64, quantum: Double) -> Double {
+        ABLLinkPhaseAtTime(sessionStateRef, Clock.shared.ticks(forMicros: micros), quantum)
+    }
+    
     public mutating func request(beat: Double, at micros: UInt64, quantum: Double) {
         ABLLinkRequestBeatAtTime(sessionStateRef, beat, Clock.shared.ticks(forMicros: micros), quantum)
     }

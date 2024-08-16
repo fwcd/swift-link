@@ -8,6 +8,9 @@ public protocol LinkSessionStateProtocol {
 
     /// The beat at the given time for the given quantum.
     func beat(at micros: UInt64, quantum: Double) -> Double
+
+    /// The phase at the given time for the given quantum.
+    func phase(at micros: UInt64, quantum: Double) -> Double
     
     /// Attempts to set the session to playing at the given time.
     mutating func setPlaying(_ isPlaying: Bool, at micros: UInt64)
@@ -42,6 +45,11 @@ public extension LinkSessionStateProtocol {
     /// The beat at the current time for the given quantum.
     func beat(quantum: Double) -> Double {
         beat(at: Clock.shared.micros, quantum: quantum)
+    }
+
+    /// The phase at the current time for the given quantum.
+    func phase(quantum: Double) -> Double {
+        phase(at: Clock.shared.micros, quantum: quantum)
     }
 
     /// Attempts to set the session to playing at the current time.

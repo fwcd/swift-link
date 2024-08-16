@@ -41,6 +41,10 @@ public final class _CrossPlatformLinkSessionState: LinkSessionStateProtocol {
     public func beat(at micros: UInt64, quantum: Double) -> Double {
         abl_link_beat_at_time(sessionStateInstance, Int64(micros), quantum)
     }
+
+    public func phase(at micros: UInt64, quantum: Double) -> Double {
+        abl_link_phase_at_time(sessionStateInstance, Int64(micros), quantum)
+    }
     
     public func request(beat: Double, at micros: UInt64, quantum: Double) {
         abl_link_request_beat_at_time(sessionStateInstance, beat, Int64(micros), quantum)
