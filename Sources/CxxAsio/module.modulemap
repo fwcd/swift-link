@@ -1,0 +1,5 @@
+module CAsio [system] {
+    header "asio.hpp"
+    link "asio"
+    export *
+}

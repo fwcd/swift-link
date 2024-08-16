@@ -3,6 +3,13 @@
 
 import PackageDescription
 
+let linkPlatformDefines: [CXXSetting] = [
+    .define("LINK_PLATFORM_UNIX", to: "1", .when(platforms: [.macOS, .linux])),
+    .define("LINK_PLATFORM_MACOSX", to: "1", .when(platforms: [.macOS])),
+    .define("LINK_PLATFORM_LINUX", to: "1", .when(platforms: [.linux])),
+    .define("LINK_PLATFORM_WINDOWS", to: "1", .when(platforms: [.windows])),
+]
+
 let package = Package(
     name: "swift-link",
     platforms: [
@@ -26,13 +33,49 @@ let package = Package(
         ),
         .target(
             name: "CLinkKit",
-            dependencies: ["LinkKit"]
+            dependencies: [
+                .target(name: "LinkKit", condition: .when(platforms: [.iOS])),
+            ]
+        ),
+        .systemLibrary(
+            name: "CxxAsio",
+            pkgConfig: "asio",
+            providers: [
+                .apt(["asio-dev"]),
+                .brew(["asio"]),
+            ]
+        ),
+        .target(
+            name: "CxxLink",
+            dependencies: [
+                .target(name: "CxxAsio"),
+            ],
+            exclude: [
+                "link/examples",
+                "link/extensions", // We don't need the C wrapper
+                "link/src", // Contains only tests
+                "link/modules", // We already consume asio as a system library
+            ],
+            cxxSettings: linkPlatformDefines + [
+                .headerSearchPath("link/include"),
+                .headerSearchPath("link/third_party/catch"),
+            ]
         ),
         .target(
             name: "Link",
             dependencies: [
                 .target(name: "CLinkKit", condition: .when(platforms: [.iOS])),
-            ]
+                .target(name: "CxxLink", condition: .when(platforms: [.macOS])) // TODO: Other platforms
+            ],
+            cxxSettings: linkPlatformDefines + [
+                // We don't set publicHeaderPath in CxxLink to link/include
+                // since that will include a bunch of headers for other
+                // platforms (e.g. ESP32), so we'll just set the header
+                // search path manually here where we consume CxxLink.
+                .headerSearchPath("../CxxLink/link/include"),
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
         ),
-    ]
+    ],
+    cxxLanguageStandard: .cxx20
 )

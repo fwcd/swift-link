@@ -1,4 +1,6 @@
 #if !os(iOS)
+import CxxLink
+
 public struct _CrossPlatformLinkManager: LinkManagerProtocol {
     @MainActor
     public var appSessionState: LinkSessionState {
