@@ -14,5 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
     - name: Build
       run: xcodebuild build -scheme swift-link -destination 'generic/platform=iOS'

@@ -18,6 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
     - name: Install dependencies
       run: sudo apt-get update -y && sudo apt-get install -y libasio-dev
     - uses: swift-actions/setup-swift@v2
