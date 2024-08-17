@@ -35,7 +35,7 @@ let package = Package(
             name: "CxxAsio",
             pkgConfig: "asio",
             providers: [
-                .apt(["asio-dev"]),
+                .apt(["libasio-dev"]),
                 .brew(["asio"]),
             ]
         ),
