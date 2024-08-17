@@ -3,6 +3,16 @@
 
 import PackageDescription
 
+// Unfortunately Xcode doesn't seem to like unsafe flags, so we'll have to
+// cond-compile them even though we use a platform conditional.
+#if os(Linux)
+let linkerSettings: [LinkerSetting] = [
+    .unsafeFlags(["-latomic"], .when(platforms: [.linux])),
+]
+#else
+let linkerSettings: [LinkerSetting] = []
+#endif
+
 let package = Package(
     name: "swift-link",
     platforms: [
@@ -55,9 +65,7 @@ let package = Package(
                 .headerSearchPath("link/include"),
                 .headerSearchPath("link/third_party/catch"),
             ],
-            linkerSettings: [
-                .unsafeFlags(["-latomic"], .when(platforms: [.linux])),
-            ]
+            linkerSettings: linkerSettings
         ),
         .target(
             name: "Link",
