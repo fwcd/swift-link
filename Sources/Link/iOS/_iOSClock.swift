@@ -6,7 +6,7 @@ public struct _iOSClock: ClockProtocol {
     private let ticksPerMicro: UInt64
     
     public var micros: UInt64 {
-        mach_absolute_time()
+        micros(forTicks: mach_absolute_time())
     }
 
     public init() {
