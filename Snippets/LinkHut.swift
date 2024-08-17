@@ -6,7 +6,7 @@ import Foundation
 import Link
 
 struct State {
-    let link = LinkManager()
+    let link = Link()
     var running: Bool = true
     var quantum: Double = 4
 }

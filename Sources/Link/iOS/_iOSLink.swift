@@ -3,7 +3,7 @@ import Foundation
 import CLinkKit
 import Observation
 
-@Observable public final class _iOSLinkManager: LinkManagerProtocol {
+@Observable public final class _iOSLink: LinkProtocol {
     private(set) var linkRef: ABLLinkRef
     
     @MainActor

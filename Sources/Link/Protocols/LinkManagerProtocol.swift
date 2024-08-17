@@ -1,5 +1,5 @@
 /// A high-level wrapper around the Ableton Link instance.
-public protocol LinkManagerProtocol {
+public protocol LinkProtocol {
     associatedtype LinkSessionState: LinkSessionStateProtocol
 
     /// Captures or commits the session state from the main app thread.
@@ -24,7 +24,7 @@ public protocol LinkManagerProtocol {
     func setActive(_ isActive: Bool)
 }
 
-public extension LinkManagerProtocol {
+public extension LinkProtocol {
     init() {
         self.init(initialBpm: 120)
     }

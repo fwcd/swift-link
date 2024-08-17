@@ -1,7 +1,7 @@
 #if !os(iOS)
 import CxxLink
 
-public final class _CrossPlatformLinkManager: LinkManagerProtocol {
+public final class _CrossPlatformLink: LinkProtocol {
     private let linkInstance: abl_link
 
     @MainActor
