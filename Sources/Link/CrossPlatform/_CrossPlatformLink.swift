@@ -1,6 +1,12 @@
 #if !os(iOS)
 import CxxLink
+#if os(macOS)
+import Observation
+#endif
 
+#if os(macOS)
+@Observable
+#endif
 public final class _CrossPlatformLink: LinkProtocol {
     private let linkInstance: abl_link
 
