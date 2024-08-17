@@ -54,6 +54,9 @@ let package = Package(
                 .define("LINK_PLATFORM_WINDOWS", .when(platforms: [.windows])),
                 .headerSearchPath("link/include"),
                 .headerSearchPath("link/third_party/catch"),
+            ],
+            linkerSettings: [
+                .unsafeFlags(["-latomic"], .when(platforms: [.linux])),
             ]
         ),
         .target(
