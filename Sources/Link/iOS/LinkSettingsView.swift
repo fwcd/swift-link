@@ -3,9 +3,11 @@ import SwiftUI
 import CLinkKit
 
 public struct LinkSettingsView: UIViewControllerRepresentable {
-    @Environment(Link.self) private var link
+    private let link: Link
     
-    public init() {}
+    public init(link: Link) {
+        self.link = link
+    }
 
     public func makeUIViewController(context: Context) -> ABLLinkSettingsViewController {
         ABLLinkSettingsViewController.instance(link.linkRef)
@@ -17,7 +19,6 @@ public struct LinkSettingsView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    LinkSettingsView()
-        .environment(Link())
+    LinkSettingsView(link: Link())
 }
 #endif
