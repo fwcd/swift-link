@@ -1,10 +1,11 @@
 #if !os(iOS)
 import CxxLink
-#if os(macOS)
+
+#if canImport(Observation)
 import Observation
 #endif
 
-#if os(macOS)
+#if canImport(Observation)
 @Observable
 #endif
 public final class _CrossPlatformLink: LinkProtocol {
