@@ -1,11 +1,14 @@
 #if !os(iOS)
 import CxxLink
 
-#if canImport(Observation)
+// TODO: Remove cond-compiles to re-enable for Observation on Linux once
+// https://github.com/swiftlang/swift/issues/75670 is fixed.
+
+#if os(macOS)
 import Observation
 #endif
 
-#if canImport(Observation)
+#if os(macOS)
 @Observable
 #endif
 public final class _CrossPlatformLink: LinkProtocol {
